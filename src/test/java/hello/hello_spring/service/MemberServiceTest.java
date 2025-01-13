@@ -30,8 +30,7 @@ class MemberServiceTest {
     @Test
     void 회원가입() {
         // given
-        Member member = new Member();
-        member.setName("spring");
+        Member member = getMember("spring");
         // when
 
         long saveId = memberService.join(member);
@@ -43,11 +42,9 @@ class MemberServiceTest {
     @Test
      void 중복_회원_예외() {
         // given
-        Member member1 = new Member();
-        member1.setName("spring");
+        Member member1 = getMember("spring");
+        Member member2 = getMember("spring");
 
-        Member member2 = new Member();
-        member2.setName("spring");
         // when
         memberService.join(member1);
 
@@ -63,10 +60,8 @@ class MemberServiceTest {
     @Test
     void 전체_유저_리스트() {
         // given
-        Member member1 = new Member();
-        member1.setName("spring1");
-        Member member2 = new Member();
-        member2.setName("spring2");
+        Member member1 = getMember("spring");
+        Member member2 = getMember("spring2");
         // when
         memberService.join(member1);
         memberService.join(member2);
@@ -76,12 +71,17 @@ class MemberServiceTest {
         assertThat(members.size()).isEqualTo(2);
     }
 
+    private static Member getMember(String name) {
+        Member member1 = new Member();
+        member1.setName(name);
+        return member1;
+    }
+
     @Test
     void 단일_유저_검색() {
 
         // given
-        Member member1 = new Member();
-        member1.setName("spring4444");
+        Member member1 = getMember("spring2");
         // when
         long setId = memberService.join(member1);
 
